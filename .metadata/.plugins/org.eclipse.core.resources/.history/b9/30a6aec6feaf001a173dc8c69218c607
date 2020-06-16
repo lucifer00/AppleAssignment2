@@ -1,0 +1,33 @@
+package com.ratemovie.entity;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.Table;
+
+@Entity(name = "CustomerMovie")
+@Table(name="CustomerMovie")
+public class CustomerMovieRating {
+	@EmbeddedId
+	private CustomerMovieId customerMovieId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("customer_id")
+	private Customer customer;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@MapsId("movie_id")
+	private Movie movie;
+	
+	@Column(name = "rating")
+	private Integer rating;
+	
+	private CustomerMovieRating() {}
+	
+	public CustomerMovieRating(Customer customer,Movie movie) {
+		this.customerMovieId=new CustomerMovieId(customer.getCustomerId(),movie.getMovieId());
+	}
+}

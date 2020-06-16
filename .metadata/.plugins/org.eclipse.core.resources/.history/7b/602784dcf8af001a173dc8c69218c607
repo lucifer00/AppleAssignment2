@@ -1,0 +1,5 @@
+package com.ratemovie.service;
+
+public class MovieRateServiceImpl implements MovieRateService{
+
+}

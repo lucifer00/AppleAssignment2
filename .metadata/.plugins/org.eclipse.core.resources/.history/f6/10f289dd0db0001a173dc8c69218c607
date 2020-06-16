@@ -1,0 +1,6 @@
+package com.ratemovie.utility;
+
+public class MovieRating {
+	private Integer movieId;
+	private Double rating;
+}

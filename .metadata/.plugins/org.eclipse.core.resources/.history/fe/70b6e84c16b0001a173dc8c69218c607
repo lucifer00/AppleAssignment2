@@ -1,0 +1,6 @@
+package com.ratemovie.utility;
+
+public class CustomerRatingUtility {
+	private Integer customerId;
+	private Double rating;
+}

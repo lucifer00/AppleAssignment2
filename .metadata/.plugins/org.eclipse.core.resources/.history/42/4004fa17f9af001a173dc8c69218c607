@@ -1,0 +1,18 @@
+package com.ratemovie.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ratemovie.entity.Customer;
+import com.ratemovie.service.MovieRateService;
+
+@RestController
+public class MovieRatingController {
+	@Autowired
+	private MovieRateService movieRateService;
+	public List<Customer> getAllCustomers(){
+		return movieRateService.getAllCustomers();
+	}
+}

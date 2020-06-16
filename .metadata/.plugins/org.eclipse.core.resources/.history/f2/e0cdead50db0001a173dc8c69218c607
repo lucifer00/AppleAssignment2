@@ -1,0 +1,5 @@
+package com.ratemovie.utility;
+
+public class MovieRating {
+
+}

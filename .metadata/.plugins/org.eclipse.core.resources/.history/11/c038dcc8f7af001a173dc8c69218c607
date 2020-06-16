@@ -1,0 +1,5 @@
+package com.ratemovie.entity;
+
+public class Movie {
+
+}

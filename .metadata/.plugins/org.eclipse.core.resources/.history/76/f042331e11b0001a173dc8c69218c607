@@ -1,0 +1,59 @@
+package com.ratemovie.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ratemovie.entity.Customer;
+import com.ratemovie.entity.CustomerMovieRating;
+import com.ratemovie.entity.Movie;
+import com.ratemovie.repository.CustomerMovieRatingRepository;
+import com.ratemovie.repository.CustomerRepository;
+import com.ratemovie.repository.MovieRepository;
+import com.ratemovie.utility.MovieRating;
+
+@Service
+public class MovieRateServiceImpl implements MovieRateService{
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Autowired
+	private MovieRepository movieRepository;
+	
+	@Autowired
+	private CustomerMovieRatingRepository movieRatingRepository;
+	@Override
+	public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
+	}
+	@Override
+	public List<CustomerMovieRating> addNewMovieRating(Integer customerId, Integer movieId, Double rating) {
+		Customer customer=customerRepository.getOne(customerId);
+		Movie movie=movieRepository.getOne(movieId);
+		CustomerMovieRating customerMovieRating=new CustomerMovieRating(customer, movie);
+		customerMovieRating.setRating(rating);
+		movieRatingRepository.saveAndFlush(customerMovieRating);
+		return movieRatingRepository.findAll();
+	}
+	@Override
+	public Movie movieWithHighestAverageRating() {
+		List<CustomerMovieRating> customerMovieRatings=new ArrayList<>();
+		customerMovieRatings=movieRatingRepository.findAll();
+		List<Movie> movies=movieRepository.findAll();
+		List<MovieRating> movieAndRatings=new ArrayList<>();
+		customerMovieRatings.forEach(ratingObject->{
+			MovieRating movieRating=new MovieRating();
+			movieRating.setMovieId(ratingObject.getCustomerMovieId().getMovieId());
+			movieRating.setRating(ratingObject.getRating());
+			movieAndRatings.add(movieRating);
+		});
+		movies.forEach(movie->{
+			movieAndRatings.stream().filter()
+		});
+		return null;
+	}
+	
+}

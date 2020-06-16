@@ -1,0 +1,5 @@
+package com.ratemovie.service;
+
+public interface MovieRateService {
+
+}

@@ -1,0 +1,9 @@
+package com.ratemovie.service;
+
+import java.util.List;
+
+import com.ratemovie.entity.Customer;
+
+public interface MovieRateService {
+	public List<Customer> getAllCustomers();
+}

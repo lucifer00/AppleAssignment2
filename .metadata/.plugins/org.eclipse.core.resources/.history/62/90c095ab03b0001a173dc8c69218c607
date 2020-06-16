@@ -1,0 +1,33 @@
+package com.ratemovie.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ratemovie.entity.Customer;
+import com.ratemovie.entity.CustomerMovieRating;
+import com.ratemovie.repository.CustomerMovieRatingRepository;
+import com.ratemovie.repository.CustomerRepository;
+
+@Service
+public class MovieRateServiceImpl implements MovieRateService{
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private CustomerMovieRatingRepository movieRatingRepository;
+	@Override
+	public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
+	}
+	@Override
+	public List<CustomerMovieRating> addNewMovieRating(Integer customerId, Integer movieId, Integer rating) {
+		CustomerMovieRating customerMovieRating=new CustomerMovieRating(customerId, movieId);
+		customerMovieRating.setRating(rating);
+		movieRatingRepository.saveAndFlush(customerMovieRating);
+		return movieRatingRepository.findAll();
+	}
+	
+}

@@ -1,0 +1,20 @@
+package com.ratemovie.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ratemovie.entity.Customer;
+import com.ratemovie.repository.CustomerRepository;
+
+@Service
+public class MovieRateServiceImpl implements MovieRateService{
+	
+	@Autowired
+	private CustomerRepository customerRepository;
+	@Override
+	public List<Customer> getAllCustomers() {
+		return customerRepository.findAll();
+	}
+}

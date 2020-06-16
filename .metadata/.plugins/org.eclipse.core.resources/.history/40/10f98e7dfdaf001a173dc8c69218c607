@@ -1,0 +1,12 @@
+package com.ratemovie.entity;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity(name = "CustomerMovie")
+@Table(name="CustomerMovie")
+public class CustomerMovieRating {
+	@EmbeddedId
+	private CustomerMovieId customerMovieId;
+}

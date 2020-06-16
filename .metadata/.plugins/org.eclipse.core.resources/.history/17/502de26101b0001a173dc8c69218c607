@@ -1,0 +1,5 @@
+package com.ratemovie.repository;
+
+public interface CustomerMovieRatingRepositiory {
+
+}
