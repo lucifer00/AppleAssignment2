@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/*The Customer Entity object*/
 @Entity
 @Table(name = "customer")
 public class Customer {

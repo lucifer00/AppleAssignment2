@@ -18,12 +18,13 @@ import com.ratemovie.repository.MovieRepository;
 import com.ratemovie.utility.CustomerRating;
 import com.ratemovie.utility.CustomerRatingUtility;
 import com.ratemovie.utility.MovieRating;
-
+/*Service class for Business logic.
+ * Contains implementations of the required business functionalities.*/
 @Service
 public class MovieRateServiceImpl implements MovieRateService{
 	
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerRepository customerRepository; 
 	@Autowired
 	private MovieRepository movieRepository;
 	
@@ -33,6 +34,7 @@ public class MovieRateServiceImpl implements MovieRateService{
 	public List<Customer> getAllCustomers() {
 		return customerRepository.findAll();
 	}
+	/*Adds rating for a movie and persists in the DB relationship table.*/
 	@Override
 	public List<CustomerMovieRating> addNewMovieRating(Integer customerId, Integer movieId, Double rating) {
 		Customer customer=customerRepository.getOne(customerId);
@@ -42,6 +44,7 @@ public class MovieRateServiceImpl implements MovieRateService{
 		movieRatingRepository.saveAndFlush(customerMovieRating);
 		return movieRatingRepository.findAll();
 	}
+	/*Fetches and returns the Movie with the highest average rating.*/
 	@Override
 	public Movie movieWithHighestAverageRating() {
 		List<CustomerMovieRating> customerMovieRatings=new ArrayList<>();
@@ -61,13 +64,14 @@ public class MovieRateServiceImpl implements MovieRateService{
 			movieRating.setMovieId(k);
 			movieRating.setRating(v.stream().mapToDouble(t->t.getRating()).average().getAsDouble());
 			movieAndRatingsAverage.add(movieRating);
-		});
+		}); //Average per movie with movie id is stored in the list movieAndRatingsAverage
 		Collections.sort(movieAndRatingsAverage, (o1,o2)->{
 			if(o1.getRating()>o2.getRating()) return -1;
 			else return 1;
-		});
-		return movieRepository.getOne(movieAndRatingsAverage.get(0).getMovieId());
+		}); //Sorts the movieAndRatingsAverage list
+		return movieRepository.getOne(movieAndRatingsAverage.get(0).getMovieId()); // returns the movie with highest average rating.
 	}
+	/*Fetches and returns the Customer who gave the highest average rating.*/
 	@Override
 	public CustomerRating getHighestRateCustomer() {
 		List<CustomerMovieRating> customerMovieRatings=new ArrayList<>();
@@ -87,20 +91,20 @@ public class MovieRateServiceImpl implements MovieRateService{
 			customerRating.setCustomerId(k);
 			customerRating.setRating(v.stream().mapToDouble(t->t.getRating()).average().getAsDouble());
 			customerAndRatingsAverage.add(customerRating);
-		});
+		});  //Average rating per customer is stored in customerAndRatingsAverage
 		Collections.sort(customerAndRatingsAverage, (o1,o2)->{
 			if(o1.getRating()>o2.getRating()) return -1;
 			else return 1;
-		});
+		}); //Sorting customerAndRatingsAverage .
 		Double averageOverallRating=customerMovieRatings.stream().mapToDouble(t->t.getRating()).average().getAsDouble();
-		CustomerRating customerRating=new CustomerRating();
+		CustomerRating customerRating=new CustomerRating(); // Creating a new CustomerRating to return to Frontend.
 		Customer topRateCustomer=customerRepository.getOne(customerAndRatingsAverage.get(0).getCustomerId());
 		customerRating.setAverageRating(averageOverallRating);
 		customerRating.setCustomerAverageRating(customerAndRatingsAverage.get(0).getRating());
 		customerRating.setCustomerId(topRateCustomer.getCustomerId());
 		customerRating.setFirstName(topRateCustomer.getFirstName());
 		customerRating.setLastName(topRateCustomer.getLastName());
-		return customerRating;
+		return customerRating; //CustomerRating object returned having the requisite information.
 	}
 	
 }

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/*Entity object for the relationship table CustomerMovie*/
 @Entity(name = "CustomerMovie")
 @Table(name="CustomerMovie")
 public class CustomerMovieRating {

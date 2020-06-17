@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+/*Embedded id object for the many-many relationship table which has composite primary key.*/
 @Embeddable
 public class CustomerMovieId implements Serializable {
 	@Column(name="customer_id")
